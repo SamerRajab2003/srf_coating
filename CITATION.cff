@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+title: "SRF Coating Simulation and Statistical Analysis Pipeline"
+abstract: >-
+  A modular pipeline for simulating and analyzing statistical quality-factor
+  distributions, frequency detuning, and quench hot-spot risks in superconducting
+  radio-frequency (SRF) cavities with spatially inhomogeneous multilayer
+  coatings using continuous surface SPDE Gaussian random fields and
+  the generalized transfer-matrix impedance model.
+version: 1.0.0
+date-released: 2026-10-26
+license: "MIT"
+repository-code: "https://github.com/SamerRajab2003/srf_coating"
+
+authors:
+  - family-names: "Rajab"
+    given-names: "Samer Mohammed Atta"
+    affiliation: "Technische Universität Darmstadt"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+
+keywords:
+  - "superconducting radio-frequency"
+  - "SRF cavity"
+  - "thin-film coatings"
+  - "CST Studio Suite"
+  - "Monte Carlo"
+  - "SPDE"
+  - "quality factor"

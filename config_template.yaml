@@ -1,0 +1,59 @@
+# =====================================================================
+# srf_coating configuration template
+# Copy this file, edit the values, then run:
+#     python run.py config_template.yaml
+# All defaults below reproduce the numbers of the validated pipeline.
+# =====================================================================
+
+project:
+  # Path to the ALREADY SOLVED CST project. The tool only READS from it.
+  cst_project_file: C:/Users/rajab/Job/Simulations&Scripts/TESLA_nb_coating_lib/CST/Cylinder_2.cst
+
+  # Binary mesh file. Leave empty to auto-derive the standard CST layout:
+  #   <project folder>/<project name without .cst>/Result/3d.slim
+  slim_file:
+
+  # Eigenmode to analyse (CST numbering starts at 1).
+  mode_number: 1
+
+surface:
+  # Integration metric used for the surface loss:
+  #   auto   -> curved metric when the mesh carries curvature data (order 2),
+  #             flat metric otherwise (order 1).  RECOMMENDED.
+  #   flat   -> force flat chord facets (reproduces CST native QFactor tool).
+  #   curved -> force curved metric (physical surface; needs order-2 mesh).
+  metric: "auto"
+  cst_q_post_processing: true
+
+coating:
+  mean_thickness_nm: 260.0     # global average d_S of the SIS coating [nm]
+  max_deviation_nm: 26.0       # GRF rescaling interval, +/- 10% of the mean [nm]
+
+impedance:
+  model_type: sis_multilayer   # sis_multilayer or transfer_matrix
+  T_op_K: 4.2                  # Operating temperature [K]
+  layers:
+    - name: NbTiN_coating       # thickness taken from coating.mean_thickness_nm / GRF
+      type: superconductor
+      sigma_S_per_m: 2.86e6     # Conductivity [S/m]
+      lambda_0_m: 180.57e-9     # Penetration depth [m]
+      Tc_K: 15.4               # Critical temperature [K]
+    - name: AlN_insulator
+      type: insulator
+      thickness_nm: 10.0        # Layer thickness [nm]
+      epsilon_r: 10.4           # Relative permittivity
+      tan_delta: 2.4e-4         # Loss tangent
+    - name: Nb_substrate        # last layer, semi-infinite
+      type: superconductor
+      sigma_300K_S_per_m: 6.58e6
+      RRR: 300.0
+      lambda_0_m: 39.0e-9
+      Tc_K: 9.23
+
+statistics:
+  num_samples: 2048            # Monte Carlo samples per length scale
+  length_scales_mm: [3.0, 8.0, 20.0, 100.0, 280.0, 614.5, 626.5, 638.5, 650.5, 662.5, 873.3, 885.3, 897.3, 909.3, 921.3, 1250.0, 1550.0, 1800.0, 2400.0, 3200.0]
+  base_seed: 1               # Seed for random numbers
+
+output:
+  directory: "outputs"         # Folder where run results are saved

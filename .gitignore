@@ -1,0 +1,29 @@
+# Byte-compiled / Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE & Editor settings
+.vscode/
+
+# Logs
+*.log
+logs/
+
+# Pipeline outputs & figures
+outputs/
+figures/
+
+# CST Studio Suite projects, meshes, and cache folders
+*.cst
+*.slim
+Result/
+Cache/
+Temp/
+
+# Numerical dumps & field archives
+*.npy
+*.npz
+
+# Legacy sweep paths
+TESLA_nb_coating_lib/CST/sweep_results/
