@@ -7,7 +7,7 @@ abstract: >-
   radio-frequency (SRF) cavities with spatially inhomogeneous multilayer
   coatings using continuous surface SPDE Gaussian random fields and
   the generalized transfer-matrix impedance model.
-version: 1.0.0
+version: 1.0.2
 date-released: 2026-10-26
 license: "MIT"
 repository-code: "https://github.com/SamerRajab2003/srf_coating"
@@ -16,7 +16,11 @@ authors:
   - family-names: "Rajab"
     given-names: "Samer Mohammed Atta"
     affiliation: "Technische Universität Darmstadt"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    email: "samer.rajab@stud.tu-darmstadt.de"
+  - family-names: "Gobeyn"
+    given-names: "Aaron"
+    affiliation: "Technische Universität Darmstadt"
+    email: "aaron.gobeyn@tu-darmstadt.de"
 
 keywords:
   - "superconducting radio-frequency"

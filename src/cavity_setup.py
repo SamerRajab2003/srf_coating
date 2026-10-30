@@ -34,8 +34,8 @@ logger = logging.getLogger(__name__)
 
 # --- GEOMETRY: CUPS (Wanzenberg 2001) ---
 MID_CUP = {
-    'name': 'Mid_Cup', 'L': 27.7,
-    'Req': 103.3, 'Aeq': 42.0, 'Beq': 12.0,
+    'name': 'Mid_Cup', 'L': 57.7,
+    'Req': 103.3, 'Aeq': 42.0, 'Beq': 42.0,
     'Rir': 35.0,  'Air': 19.0, 'Bir': 12.0
 }
 END_CUP_1 = {
@@ -92,7 +92,8 @@ SOLVER_SETTINGS = {
 }
 
 # --- FILE PATHS & EXECUTION MODE ---
-CST_PROJECT_FILE = r"C:\Users\rajab\Job\Simulations&Scripts\TESLA_nb_coating_lib\CST\Single_Tesla_Slim_1.cst"
+CST_PROJECT_FILE = str(Path(__file__).resolve(
+).parent.parent / "example" / "example_tesla.cst")
 # "new"      = build geometry from scratch.
 # "existing" = attach to open project and only update solver/mesh settings.
 CST_MODE = "new"
@@ -380,8 +381,7 @@ def build_9cell_vacuum_vba():
     layout.append((right_cup, False))
 
     vba = 'Component.New "TESLA"\n'
-    proto_map = {id(END_CUP_1): "Proto_End1", id(MID_CUP)
-                    : "Proto_Mid", id(END_CUP_2): "Proto_End2"}
+    proto_map = {id(END_CUP_1): "Proto_End1", id(MID_CUP)                 : "Proto_Mid", id(END_CUP_2): "Proto_End2"}
     seen, prototypes = {}, []
 
     for cup, _ in layout:

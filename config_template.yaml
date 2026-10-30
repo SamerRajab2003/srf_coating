@@ -7,8 +7,8 @@
 
 project:
   # Path to the ALREADY SOLVED CST project. The tool only READS from it.
-  cst_project_file: C:/Users/rajab/Job/Simulations&Scripts/TESLA_nb_coating_lib/CST/Cylinder_2.cst
-
+  cst_project_file: "./example/example_tesla.cst"
+  
   # Binary mesh file. Leave empty to auto-derive the standard CST layout:
   #   <project folder>/<project name without .cst>/Result/3d.slim
   slim_file:

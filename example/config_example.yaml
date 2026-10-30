@@ -1,0 +1,41 @@
+project:
+  cst_project_file: "./example/example_tesla.cst"
+  slim_file:
+  mode_number: 1
+
+surface:
+  metric: auto
+  cst_q_post_processing: true
+
+coating:
+  mean_thickness_nm: 260.0
+  max_deviation_nm: 26.0
+
+impedance:
+  model_type: sis_multilayer
+  T_op_K: 4.2
+  layers:
+    - name: NbTiN_coating
+      type: superconductor
+      sigma_S_per_m: 2.86e6
+      lambda_0_m: 180.57e-9
+      Tc_K: 15.4
+    - name: AlN_insulator
+      type: insulator
+      thickness_nm: 10.0
+      epsilon_r: 10.4
+      tan_delta: 2.4e-4
+    - name: Nb_substrate
+      type: superconductor
+      sigma_300K_S_per_m: 6.58e6
+      RRR: 300.0
+      lambda_0_m: 39.0e-9
+      Tc_K: 9.23
+
+statistics:
+  num_samples: 128
+  length_scales_mm: [10.0, 25.0, 50.0]
+  base_seed: 1
+
+output:
+  directory: outputs/example_run

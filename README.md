@@ -1,17 +1,22 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23660246.svg)](https://doi.org/10.5281/zenodo.23660246)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23662999.svg)](https://doi.org/10.5281/zenodo.23662999)
 # SRF COATING SIMULATION AND STATISTICAL ANALYSIS PIPELINE
 
 ## OVERVIEW
-Pipeline for simulating and analyzing statistical quality-factor distributions of SRF cavities with spatially inhomogeneous multilayer coatings, based on the generalized transfer-matrix model of Gobeyn et al. (2026). The tool is split into decoupled stages: automated CST cavity and solver setup, Monte Carlo physics sampling from a solved CST project, single-cavity statistical post-processing, and multi-cavity comparison.
+Pipeline for simulating and analyzing statistical quality-factor distributions of SRF cavities with spatially inhomogeneous multilayer coatings, based on the generalized transfer-matrix model of Gobeyn et al. (2026). The tool is split into decoupled stages: automated CST cavity generation and solver setup, Monte Carlo physics sampling from a solved CST project, cavity statistical post-processing.
 
-## REQUIREMENTS
-- Windows with CST Studio Suite 2024 or 2025.
-- Python 3.10 or higher.
-- CST and Python on the same machine (they communicate via Windows COM).
-- Python packages: pip install numpy scipy pandas matplotlib pydantic PyYAML pywin32
+## REQUIREMENTS & SETUP
+- Windows 10/11 (64-bit) with CST Studio Suite 2024 or 2025.
+- Python 3.10, 3.11, or 3.12 (64-bit).
+- CST and Python on the same machine (communicate via Windows COM).
+- Python packages:
+  pip install numpy scipy pandas matplotlib pydantic PyYAML pywin32 pyvista
+- CST COM Path:
+  Verify line 21 in `src/cavity_setup.py` matches the local CST installation:
+  `C:\Program Files (x86)\CST Studio Suite 2025\AMD64` (change 2025 to 2024 if needed).
+- Tip: Always close the CST project tab before running Python extraction to prevent COM interface locks.
 
 ## WORKFLOW 1: CAVITY AND SOLVER SETUP (setup_cavity.py)
-Builds a 9-cell TESLA cavity from scratch via VBA injection, applies electric boundaries and PEC background, configures the high-frequency tetrahedral mesh with order-2 curvature, and sets up the AKS eigenmode solver. All geometry and solver parameters are editable at the top of src/cavity_setup.py.
+Builds a configurable TESLA cavity from scratch via VBA injection, applies electric boundaries and PEC background, configures the high-frequency tetrahedral mesh with order-2 curvature, and sets up the AKS eigenmode solver. All geometry and solver parameters are editable at the top of src/cavity_setup.py.
 Run: python setup_cavity.py
 To only update mesh and solver settings on an already open project, set CST_MODE = "existing" in src/cavity_setup.py.
 
@@ -41,20 +46,14 @@ Add --verbose for per-sample progress on the console. A detailed run.log with ti
 Reads the raw samples of a finished run and produces the statistical tables, hypothesis tests, diagnostic distribution plots, and invariant field metrics (effective area A_eff and peakiness) in seconds, without CST.
 Run: python analyze.py outputs/run_YYYY-MM-DD_HH-MM-SS
 
-## WORKFLOW 4: MULTI-CAVITY COMPARISON (compare.py)
-Reads the summary tables across multiple finished runs and automatically generates a three-panel comparative figure comparing quality factor spread, detuning jitter versus the 40 Hz continuous-wave bandwidth, and quench hot-spot risk.
-Run: python compare.py
-
 ## OUTPUTS PER RUN
 From run.py: config_snapshot.yaml (exact settings), extracted_fields.npz (mesh and fields for CST-free reruns), all_samples_raw.csv (every Monte Carlo sample, including frequency shift delta_f and hot-spot factor f_hot), run.log (debug log and tracebacks).
 From analyze.py: statistics_summary.csv (mean, std, 95 percent confidence intervals, delta_f, f_hot, and loaded Q per length scale), hypothesis_tests_overall.csv (overall Levene and Welch ANOVA with rejection flags), levene_pairwise.csv (pairwise Levene with Holm adjustment), games_howell.csv (pairwise mean comparisons), and the plots boxplots.png, qq_plots.png, mean_std_errors.png.
-From compare.py: figures/master_comparison_3panel.png.
 
 ## PROJECT STRUCTURE
 run.py                 entry point, physics and Monte Carlo sampling (raw data only)
 setup_cavity.py        entry point, CST geometry and solver setup
 analyze.py             entry point, single-cavity statistical post-processing
-compare.py             entry point, multi-cavity comparative plotting
 config_template.yaml   user configuration template
 figures/               output directory for master comparative figures
 outputs/               timestamped raw output directories
