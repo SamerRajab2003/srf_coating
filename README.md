@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23662999.svg)](https://doi.org/10.5281/zenodo.23662999)
+[![DOI](https://zenodo.org/badge/1434064011.svg)](https://doi.org/10.5281/zenodo.23660245)
 # SRF COATING SIMULATION AND STATISTICAL ANALYSIS PIPELINE
 
 ## OVERVIEW
